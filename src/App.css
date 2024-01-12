@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    body {
+        @apply bg-brown3;
+    }
+
+    canvas {
+        /* @apply bg-brown3; */
+    }
+
+    /* display: 'grid',
+    gridGap: 10,
+    gridTemplateAreas: `'menu editor property-windows'`,
+    gridTemplateColumns: '40px auto 200px',
+    gridTemplateRows: '1fr',
+    justifyContent: 'start', */
+
+    .collage-editor {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-areas: 'menu editor property-windows';
+        grid-template-columns: 40px auto 200px;
+        grid-template-rows: 1fr;
+        justify-content: start;
+        padding: 30px 20px;
+    }
+
+}
