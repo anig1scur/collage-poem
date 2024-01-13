@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { Property } from "../lib/core";
-import { ReactFabricContext } from '../provider-consumer';
+import { Property } from "../core/fabric";
+import { ReactFabricContext } from '../contexts';
 import { ExposedProperty } from './ExposedProperty';
 
 export type PropertyWindowsProps = {

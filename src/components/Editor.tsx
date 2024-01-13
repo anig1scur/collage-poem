@@ -26,7 +26,6 @@ export function Editor(props: EditorProps) {
 
     return (
         <canvas
-            className='border-brown30/50  border-[5px] border-solid rounded-2xl'
             height={ props.height } width={ props.width } id={ props.canvasId } ></canvas>
     )
 }

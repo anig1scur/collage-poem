@@ -1,7 +1,11 @@
+import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  resolve: {
+    alias: [{ find: '@', replacement: resolve(__dirname, './src') }],
+  },
   build: {
     rollupOptions: {
       output: {
@@ -12,5 +16,5 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-  base: './collage-poem',
+  base: '/collage-poem/',
 });

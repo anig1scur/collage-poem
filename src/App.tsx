@@ -2,10 +2,12 @@ import "./App.css"
 import React, { useContext, useEffect } from 'react';
 import { useForceUpdate } from './hooks/useForceUpdate';
 import { PropertyWindows, MenuPluginItemProps, Editor, MenuActionItemProps } from './components';
-import { Property } from './lib/core';
+import { Property } from './core/fabric';
 import { useWatch } from './hooks/useWatch';
-import { ReactFabricContext } from './provider-consumer';
+import { ReactFabricContext } from './contexts';
 import { Menu } from './components/Menu';
+import AssetsGallery from './components/assets-gallery';
+import { douMatetials } from './utils/assets';
 
 export type EditorAppProps = {
     RenderActionItem?: React.FC<MenuActionItemProps>,
@@ -42,7 +44,8 @@ function EditorApp(props: EditorAppProps) {
                 />
             </div>
             <div style={ { gridArea: 'menu' } }>
-                <Menu
+                <AssetsGallery assets={ douMatetials } current={ '2' } prefix="/collage-poem/assets/douban" />
+                {/* <Menu
                     onActionTaken={ (action) => {
                         action.execute();
                     } }
@@ -52,7 +55,7 @@ function EditorApp(props: EditorAppProps) {
                     } }
                     renderAction={ props.RenderActionItem }
                     renderPlugin={ props.RenderPluginItem }
-                />
+                /> */}
             </div>
             {
                 props.RenderPropertyRendererMap && (

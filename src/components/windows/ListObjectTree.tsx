@@ -1,9 +1,9 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import React, { useContext } from 'react';
 import { useForceUpdate } from '../../hooks/useForceUpdate';
-import { EditorObject } from '../../lib/core';
-import { EveryObjectProperty } from '../../lib/properties/EveryObjectProperty';
-import { ReactFabricContext } from '../../provider-consumer';
+import { EditorObject } from '../../core/fabric';
+import { EveryObjectProperty } from '../../core/properties/EveryObjectProperty';
+import { ReactFabricContext } from '../../contexts';
 
 export function ListObjectTree({ getObjectName, property }: { getObjectName: (eo: EditorObject) => string, property: EveryObjectProperty; }): JSX.Element {
     const forceUpdate = useForceUpdate();
@@ -70,7 +70,7 @@ export function DisplayParentEditorObject(props: { canvas?: fabric.Canvas; getOb
                     data: { id: object.id },
                     type: 'remove-object',
                 })
-            } }></TrashIcon>
+            } } />
 
         </div>
         <div style={ { paddingLeft: 10 } }>

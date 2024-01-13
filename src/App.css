@@ -2,27 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
+@layer base {
     body {
         @apply bg-brown3;
     }
 
     canvas {
-        /* @apply bg-brown3; */
+        @apply border-brown30/40 border-[12px] border-solid rounded-2xl;
     }
 
-    /* display: 'grid',
-    gridGap: 10,
-    gridTemplateAreas: `'menu editor property-windows'`,
-    gridTemplateColumns: '40px auto 200px',
-    gridTemplateRows: '1fr',
-    justifyContent: 'start', */
+    .label {
+        @apply shadow-md text-3xl min-w-[32px] hover:text-gray-400 text-gray-300 
+        text-center hover:scale-125 cursor-pointer transform -translate-y-[6px]  border-b-[1px] border-brown10  }
+
+    .label:nth-child(even) {
+        @apply transform rotate-3;
+    }
+
+    .label:nth-child(odd) {
+        @apply transform -rotate-3;
+    }
+
+}
+
+
+@layer components {
 
     .collage-editor {
         display: grid;
-        grid-gap: 10px;
+        grid-gap: 25px;
         grid-template-areas: 'menu editor property-windows';
-        grid-template-columns: 40px auto 200px;
+        grid-template-columns: 390px auto 200px;
         grid-template-rows: 1fr;
         justify-content: start;
         padding: 30px 20px;

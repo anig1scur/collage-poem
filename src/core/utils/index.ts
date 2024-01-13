@@ -1,0 +1,1 @@
+export { getRandomUid } from './getRandomUid';

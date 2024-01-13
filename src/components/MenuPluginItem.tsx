@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plugin } from '../lib/core';
+import { Plugin } from '../core/fabric';
 
 
 export type MenuPluginItemProps = {

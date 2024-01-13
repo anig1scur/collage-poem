@@ -1,5 +1,5 @@
 import React from 'react';
-import { Action, Plugin } from '../lib/core';
+import { Action, Plugin } from '../core/fabric';
 
 
 export type MenuActionItemProps = {

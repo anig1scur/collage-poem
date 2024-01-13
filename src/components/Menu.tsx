@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { Action, Plugin } from '../lib/core';
-import { ReactFabricContext } from '../provider-consumer';
+import { Action, Plugin } from '../core/fabric';
+import { ReactFabricContext } from '../contexts';
 import MenuActionItem, { MenuActionItemProps } from './MenuActionItem';
 import { MenuPluginItem, MenuPluginItemProps } from './MenuPluginItem';
 

@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import EditorApp from './App';
-import { SelectPlugin, CreateRectPlugin, CreateCirclePlugin } from './lib/plugins';
-import { LoadAction, SaveAction, ShowGridAction, UndoAction } from './lib/actions';
-import { LeftProperty, FillProperty, EveryObjectProperty, TopProperty, HeightProperty, SelectableProperty, WidthProperty, NameProperty } from './lib/properties';
-import { Property, Action, FabricContext, Plugin } from "./lib/core";
+import { SelectPlugin, CreateRectPlugin, CreateCirclePlugin } from './core/plugins';
+import { LoadAction, SaveAction, ShowGridAction, UndoAction } from './core/actions';
+import { LeftProperty, FillProperty, EveryObjectProperty, TopProperty, HeightProperty, SelectableProperty, WidthProperty, NameProperty } from './core/properties';
+import { Property, Action, FabricContext, Plugin } from "./core/fabric";
 import { ListObjectTree, MenuActionItemProps, MenuPluginItemProps } from "./components";
 import { Bars3Icon, Bars4Icon, CircleStackIcon, FolderArrowDownIcon, ReceiptPercentIcon, RectangleGroupIcon, ShieldExclamationIcon } from '@heroicons/react/24/outline';
-import { ReactFabricContext } from "./provider-consumer";
+import { ReactFabricContext } from "./contexts";
 
 const plugins: Plugin[] = [
     new SelectPlugin('Selection'),
@@ -104,9 +104,9 @@ const App = () => {
                 }
             }
             canvasId="canvas"
-            height={ 500 }
-            width={ 750 }
-        ></EditorApp>
+            height={ 950 }
+            width={ 500 }
+        />
     </ReactFabricContext.Provider>
 }
 
