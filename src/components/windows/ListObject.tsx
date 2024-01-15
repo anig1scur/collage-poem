@@ -26,9 +26,6 @@ export function DisplayEditorObject(props: { canvas?: fabric.Canvas; object: Edi
             canvas?.setActiveObject(object.fabricObject);
             // canvas?.requestRenderAll();
             forceUpdate();
-        } }
-        style={ {
-            padding: 5,
         } }>
         <div>{ object.id }</div>
     </div>;

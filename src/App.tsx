@@ -7,6 +7,7 @@ import { useWatch } from './hooks/useWatch';
 import { ReactFabricContext } from './contexts';
 import { Menu } from './components/Menu';
 import AssetsGallery from './components/assets-gallery';
+import ControlTools from './components/control-tools';
 import { douMatetials } from './utils/assets';
 
 export type EditorAppProps = {
@@ -33,7 +34,7 @@ function EditorApp(props: EditorAppProps) {
     return (
         <div
             className="collage-editor">
-            <div style={ { gridArea: 'editor' } }>
+            <div style={ { gridArea: 'editor' } } className="canvas-wrapper">
                 <Editor
                     canvasId={ props.canvasId }
                     height={ props.height }
@@ -45,7 +46,7 @@ function EditorApp(props: EditorAppProps) {
             </div>
             <div style={ { gridArea: 'menu' } }>
                 <AssetsGallery assets={ douMatetials } current={ '2' } prefix="/collage-poem/assets/douban" />
-                {/* <Menu
+                <Menu
                     onActionTaken={ (action) => {
                         action.execute();
                     } }
@@ -55,8 +56,9 @@ function EditorApp(props: EditorAppProps) {
                     } }
                     renderAction={ props.RenderActionItem }
                     renderPlugin={ props.RenderPluginItem }
-                /> */}
+                />
             </div>
+            <ControlTools />
             {
                 props.RenderPropertyRendererMap && (
                     <div style={ { gridArea: 'property-windows' } }>

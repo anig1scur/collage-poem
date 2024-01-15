@@ -1,5 +1,4 @@
 import { fabric } from 'fabric';
-import { XCircleIcon } from '@heroicons/react/24/solid';
 import { fromEvent, Observable, Subject, takeUntil } from 'rxjs';
 import { FabricContextUser, IDestroyable, Property } from '..';
 import { EditorObject } from './EditorObject';
@@ -56,10 +55,23 @@ export class FabricContext implements IDestroyable {
     this.plugins.forEach((p) => p.init(this));
     this.properties.forEach((p) => p.init(this));
     this.actions.forEach((a) => a.init(this));
-    this.setupControls();
+    this.setupFabricConfig();
   }
 
-  setupControls() {
+  deleteSelectedObjects() {
+
+    const canvas = this.canvas;
+    if (!canvas) throw new Error('Canvas is null');
+
+    let selection = canvas.getActiveObjects();
+    selection.forEach((obj) => {
+      canvas.remove(obj);
+    });
+    canvas.discardActiveObject();
+    canvas.requestRenderAll();
+  }
+
+  setupFabricConfig() {
     // style for selection
     fabric.Object.prototype.set({
       transparentCorners: false,
@@ -69,19 +81,19 @@ export class FabricContext implements IDestroyable {
       cornerStyle: 'circle',
       cornerStrokeColor: '#B39470',
       borderOpacityWhenMoving: 1,
+      objectCaching: false,
     });
 
-    fabric.Object.prototype.controls.deleteControl = new fabric.Control({
+    fabric.Canvas.prototype.selectionColor = '#D6CCAA3f';
+
+    // delete button
+    const deleteControl = new fabric.Control({
       x: 0.5,
       y: -0.5,
       cursorStyle: 'pointer',
       mouseUpHandler: (mouseEvent: MouseEvent, target: fabric.Transform) => {
         if (target.action === 'rotate') return true;
-        const canvas = this.canvas;
-        if (!canvas) throw new Error('Canvas is null');
-        const object = target.target as fabric.Object;
-        canvas.remove(object);
-        canvas.requestRenderAll();
+        this.deleteSelectedObjects();
         return true;
       },
       render: (
@@ -89,7 +101,6 @@ export class FabricContext implements IDestroyable {
         left: number,
         top: number,
         styleOverride: any,
-
         fabricObject: fabric.Object,
       ) => {
         const size = this.canvas?.getZoom() || 1;
@@ -98,7 +109,6 @@ export class FabricContext implements IDestroyable {
         const sizeOffset = sizeBorder - sizeIcon;
         var img = document.createElement('img');
         img.src = './assets/delete.svg';
-
         ctx.save();
         ctx.translate(left, top);
         ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle ?? 0));
@@ -106,6 +116,9 @@ export class FabricContext implements IDestroyable {
         ctx.restore();
       },
     });
+
+    fabric.Object.prototype.controls.deleteControl = deleteControl;
+    fabric.Group.prototype.controls.deleteControl = deleteControl;
   }
 
   registerPlugin(plugin: Plugin) {

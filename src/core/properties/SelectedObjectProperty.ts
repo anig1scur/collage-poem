@@ -48,7 +48,6 @@ export abstract class SelectedObjectProperty<T> extends Property<T> {
                     options: property
                 }
             })
-            // canvas.requestRenderAll();
         }
     }
 }

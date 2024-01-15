@@ -29,7 +29,6 @@ export abstract class SelectedObjectDataProperty<T> extends Property<T> {
         const selectedObject = canvas?.getActiveObject();
         if (this.context && selectedObject && selectedObject.name) {
             const editorObject = this.context?.getEditorObjectByIdOrThrow(selectedObject.name);
-            const data = editorObject.data;
             return this.getValueFromSelectedObject(editorObject);
         } else {
             return this.defaultValue;

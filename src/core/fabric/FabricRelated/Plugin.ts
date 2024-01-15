@@ -8,6 +8,7 @@ export abstract class Plugin extends FabricContextUser {
   constructor(private name: string) {
     super();
   }
+
   getName(): string {
     return this.name;
   }

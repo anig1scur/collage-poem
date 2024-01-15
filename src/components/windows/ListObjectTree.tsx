@@ -10,6 +10,7 @@ export function ListObjectTree({ getObjectName, property }: { getObjectName: (eo
     const context = React.useContext(ReactFabricContext);
     const parentObjects: EditorObject[] = (context.state.editorObjects ?? [] as EditorObject[])
         .filter((o: EditorObject) => o.parent == null);
+
     return <div>
         <h5>{ property.name } ({ context.state.editorObjects.length ?? 0 })</h5>
         <div>
@@ -49,9 +50,7 @@ export function DisplayParentEditorObject(props: { canvas?: fabric.Canvas; getOb
                 type: 'set-parent',
             })
         } }
-        style={ {
-            padding: 5,
-        } }>
+    >
         <div style={ {
             backgroundColor: canvas?.getActiveObject()?.name === object.id ? 'lightblue' : 'white',
             display: 'flex',
@@ -60,7 +59,7 @@ export function DisplayParentEditorObject(props: { canvas?: fabric.Canvas; getOb
             <div
                 onClick={ (e) => {
                     canvas?.setActiveObject(object.fabricObject);
-                    // canvas?.requestRenderAll();
+                    canvas?.requestRenderAll();
                     props.onClickAction();
                 } }>
                 { name }

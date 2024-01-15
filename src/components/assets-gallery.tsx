@@ -31,8 +31,8 @@ export const AssetsGallery: FC<GalleryProps> = ({ assets, current, prefix }) => 
                                 src: img,
                                 options: {
                                     name: getRandomUid(),
-                                    // scaleX: 0.8,
-                                    // scaleY: 0.8,
+                                    scaleX: 0.8,
+                                    scaleY: 0.8,
                                     top: Math.min(context.getMaxOffsetY() + 100, context.canvas?.height || 1440) - 40,
                                     left: context.canvas?.width ? context.canvas.width / 2 - img.width / 2 : 0,
                                 }

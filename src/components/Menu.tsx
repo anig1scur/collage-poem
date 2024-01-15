@@ -17,7 +17,7 @@ export function Menu(props: MenuProps) {
     const ActionRenderer = props.renderAction ?? MenuActionItem;
     const context = useContext(ReactFabricContext);
     return (
-        <div id="menu" style={ { display: 'flex', flexDirection: 'column' } }>
+        <div style={ { width: "32px", display: 'flex', flexDirection: 'column' } }>
             <div style={ { display: 'flex', flexDirection: 'column' } }>
                 {
                     context.plugins.map(

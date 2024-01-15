@@ -24,13 +24,13 @@ const actions: Action[] = [
 
 const properties = [
     new EveryObjectProperty("All Objects", "every-object-property", "global"),
-    new NameProperty("Name", "string", plugins[0], ""),
-    new LeftProperty("X", "number", plugins[0], 0),
-    new TopProperty("Y", "number", plugins[0], 0),
-    new WidthProperty("Width", "number", plugins[0], 0),
-    new HeightProperty("Height", "number", plugins[0], 0),
-    new FillProperty("Fill Color", "color", plugins[0], "#000001"),
-    new SelectableProperty("Selectable", "boolean", plugins[0], true),
+    new NameProperty("Name", "string", "global", ""),
+    new LeftProperty("X", "number", "global", 0),
+    new TopProperty("Y", "number", "global", 0),
+    new WidthProperty("Width", "number", "global", 0),
+    new HeightProperty("Height", "number", "global", 0),
+    new FillProperty("Fill Color", "color", "global", "#000001"),
+    new SelectableProperty("Selectable", "boolean", "global", true),
 ];
 
 function getIconFor(item: Plugin | Action) {
@@ -96,13 +96,13 @@ const App = () => {
         <EditorApp
             RenderActionItem={ CustomActionItem }
             RenderPluginItem={ CustomPluginItem }
-            RenderPropertyRendererMap={
-                {
-                    'every-object-property': (property: Property) => {
-                        return <ListObjectTree getObjectName={ (eo) => eo.data.getKey('name', eo.id) as string } property={ property as EveryObjectProperty } />
-                    }
-                }
-            }
+            // RenderPropertyRendererMap={
+            //     {
+            //         'every-object-property': (property: Property) => {
+            //             return <ListObjectTree getObjectName={ (eo) => eo.data.getKey('name', eo.id) as string } property={ property as EveryObjectProperty } />
+            //         }
+            //     }
+            // }
             canvasId="canvas"
             height={ 950 }
             width={ 500 }

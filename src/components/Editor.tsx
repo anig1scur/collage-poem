@@ -1,4 +1,4 @@
-import React, { useEffect, CSSProperties } from 'react';
+import React, { useEffect } from 'react';
 import { useForceUpdate } from "../hooks/useForceUpdate";
 import { useFabricCanvas } from '../hooks/useFabricCanvas';
 
@@ -25,8 +25,7 @@ export function Editor(props: EditorProps) {
 
 
     return (
-        <canvas
-            height={ props.height } width={ props.width } id={ props.canvasId } ></canvas>
+        <canvas height={ props.height } width={ props.width } id={ props.canvasId } ></canvas>
     )
 }
 export default Editor;
