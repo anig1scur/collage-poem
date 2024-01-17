@@ -5,6 +5,11 @@
 @layer base {
     body {
         @apply bg-brown3;
+        overflow: hidden;
+    }
+
+    .h-dynamic-screen {
+        height: 100svh
     }
 
 }
@@ -27,7 +32,7 @@
     }
 
     .label {
-        @apply shadow-md text-2xl min-w-[32px] hover:text-brown50 text-brown30 text-center hover:scale-125 cursor-pointer transform -translate-y-[6px] border-b-[1px] border-brown10
+        @apply shadow-md text-2xl min-w-[32px] hover: text-brown50 text-brown30 text-center hover:scale-125 cursor-pointer transform -translate-y-[6px] border-b-[1px] border-brown10
     }
 
     .label:nth-child(even) {
@@ -39,7 +44,11 @@
     }
 
     .button {
-        @apply  w-fit py-1 px-5 font-medium rounded-lg bg-brown30/30 text-2xl hover:bg-brown30/40 text-brown70 text-center hover:scale-110 cursor-pointer 
+        @apply w-fit py-1 px-5 font-medium rounded-lg bg-brown30/30 text-2xl hover: bg-brown30/40 text-brown70 text-center hover:scale-110 cursor-pointer
+    }
+
+    .up-and-down>div {
+        @apply cursor-grab transform transition-all duration-300 ease-in-out will-change-transform
     }
 
 }
