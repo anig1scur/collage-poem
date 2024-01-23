@@ -8,8 +8,16 @@
         overflow: hidden;
     }
 
-    .h-dynamic-screen {
+    .h-d-screen {
+        height: 100dvh
+    }
+
+    .h-s-screen {
         height: 100svh
+    }
+
+    .h-l-screen {
+        height: 100lvh
     }
 
 }
@@ -24,7 +32,7 @@
         grid-template-columns: 390px auto 200px;
         grid-template-rows: 1fr;
         justify-content: start;
-        padding: 30px 20px;
+        /* padding: 30px 20px; */
     }
 
     .canvas-wrapper {
