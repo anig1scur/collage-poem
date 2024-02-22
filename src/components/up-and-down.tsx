@@ -26,106 +26,70 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
     } = props;
 
 
-    let upHeight: number, downHeight: number;
-    let isDragging = false, curTarget: string | undefined, isUp = true,
-        startX = 0, endX = 0, startY = 0, endY = 0;
+    let active = false;
+    var currentX: number;
+    var currentY: number;
+    var initialX: number;
+    var initialY: number;
+    var xOffset = 0;
+    var yOffset = 0;
+    let upHeight: number = 0;
+    let downHeight: number = 0;
+
+
+    function setTranslate(xPos: number, yPos: number, el: HTMLDivElement) {
+        el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+    }
 
     function getSlope(x1: number, y1: number, x2: number, y2: number) {
         return (y2 - y1) / (x2 - x1);
     }
 
-    function pointerDown(event: PointerEvent) {
-        isDragging = true;
-        startY = event.clientY;
-        startX = event.clientX;
-        curTarget = (event.target as HTMLDivElement).dataset.target;
+
+    function dragStart(e: PointerEvent) {
+
+        initialX = e.clientX;
+        initialY = e.clientY;
+
+        // if (e.target === upAndDownRef.current) {
+        active = true;
+        // }
     }
 
-    function pointerUp(e: PointerEvent) {
-        isDragging = false;
-        const up = upRef.current;
-        const down = downRef.current;
-        endY = e.clientY;
-        endX = e.clientX;
+    function dragEnd(e: PointerEvent) {
+        xOffset = currentX;
+        yOffset = currentY;
+        active = false;
+    }
 
-        if (!up || !down || !curTarget) return;
+    function drag(e: PointerEvent) {
+        if (active) {
+            e.preventDefault();
 
-        let direction = startY > endY ? 'up' : 'down';
-        if (curTarget === direction) return;
 
-        const vertical = Math.abs(getSlope(startX, startY, endX, endY)) > 6;
+            var _currentX = e.clientX - initialX;
+            var _currentY = e.clientY - initialY;
 
-        if (!vertical || (Math.abs(endY - startY) < 100 && Math.abs(endY - startY) / (curTarget === 'up' ? upHeight : downHeight) < 0.5)) {
-            if (curTarget === 'up') {
-                up.style.transform = `translateY(100%)`;
-                down.style.transform = `translateY(0px)`;
+
+            if (Math.abs(_currentY / _currentX) < 0.8 && Math.abs(_currentY) > 25) {
+                return;
+            }
+
+            console.log(yOffset);
+
+            currentY = _currentY + yOffset;
+
+            if (yOffset > 0) {
+                // setTranslate(0, Math.min(Math.abs(currentY), downHeight), downRef.current!);
+                setTranslate(0, -Math.min(currentY, upHeight), upRef.current!)
             }
             else {
-
-                up.style.transform = `translateY(0px)`;
-                down.style.transform = `translateY(100%)`;
-
-               
-
-            }
-            return
-        }
-
-
-        isUp = curTarget === 'up' && startY > endY || curTarget === 'down' && startY < endY;
-        if (isUp) {
-            up.style.transform = `translateY(0px)`;
-            down.style.transform = `translateY(100%)`;
-        }
-        else {
-            up.style.transform = `translateY(100%)`;
-            down.style.transform = `translateY(0px)`;
-        }
-
-        curTarget = undefined;
-
-    }
-
-    function pointerMove(event: PointerEvent) {
-        const {
-            target,
-        } = event;
-
-        endY = event.clientY;
-        endX = event.clientX;
-
-        const el = target as HTMLDivElement;
-        if (!el) return;
-
-
-        const vertical = Math.abs(getSlope(startX, startY, endX, endY)) > 6;
-        if (!vertical) return;
-
-        let direction = startY > endY ? 'up' : 'down';
-        if (curTarget === direction) return;
-
-        isUp = direction === 'up';
-
-        if (isDragging) {
-            const up = upRef.current;
-            const down = downRef.current;
-
-            if (!up || !down) return;
-
-            let move = Math.abs(endY - startY);
-            if (isUp) {
-                // up less
-                // down more
-                up.style.transform = `translateY(${ Math.abs(move - upHeight) }px)`;
-                down.style.transform = `translateY(${ move }px)`;
-            } else {
-                console.log('qweqw')
-                up.style.transform = `translateY(${ upHeight - move }px)`;
-                down.style.transform = `translateY(${ Math.abs(move - downHeight) }px)`;
+                // setTranslate(0, -Math.min(currentY, downHeight), downRef.current!);
+                setTranslate(0, Math.min(currentY, upHeight), upRef.current!)
             }
         }
-
     }
+
 
     useEffect(() => {
         const up = upRef.current;
@@ -137,12 +101,10 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
         upHeight = up.getBoundingClientRect().height;
         downHeight = down.getBoundingClientRect().height;
 
-        [upAndDown].forEach((el) => {
-            el.addEventListener('pointerdown', pointerDown);
-            el.addEventListener('pointerup', pointerUp);
-            el.addEventListener('pointerout', pointerUp);
-            el.addEventListener('pointermove', pointerMove);
-        })
+        upAndDown.addEventListener('pointerdown', dragStart);
+        upAndDown.addEventListener('pointerup', dragEnd);
+        // upAndDown.addEventListener('pointerout', dragEnd);
+        upAndDown.addEventListener('pointermove', drag);
     }, [])
 
 
@@ -152,24 +114,24 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
 
 
     return (
-        <div ref={upAndDownRef} className='up-and-down relative h-d-screen overflow-y-hidden text-center text-white  '>
-            <div className='up h-96 bg-red-500 absolute w-full select-none bottom-0 padding-4' ref={ upRef } data-target='up'>
+        // <div className='up-and-down-container'>
+        <div ref={ upAndDownRef } className='up-and-down relative h-d-screen overflow-y-hidden text-center text-white  '>
+            <div className='up h-96 bg-red-500 absolute w-full select-none bottom-0 padding-4' ref={ upRef }>
                 <div className='flex justify-between items-center'>
                     { title }
                     { upIcon }
                 </div>
-
                 { upChildren }
             </div>
-            <div className='down bg-blue-400 absolute w-full select-none padding-4 transform translate-y-full bottom-0 h-36' ref={ downRef } data-target='down'>
+            <div className='down bg-blue-400 absolute w-full select-none padding-4 transform translate-y-full bottom-0 h-36' ref={ downRef }>
 
                 { title }
                 { downIcon }
 
                 { downChildren }
             </div>
-
         </div>
+        // </div>
     );
 }
 
