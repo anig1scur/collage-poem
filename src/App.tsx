@@ -45,10 +45,19 @@ function EditorApp(props: EditorAppProps) {
                     width={ props.width }
                 />
             </div> */}
-            {/* <div style={ { gridArea: 'menu' } }> */}
-                <UpAndDown title={"sdf"} />
-                {/* <AssetsGallery assets={ douMatetials } current={ '2' } prefix="/collage-poem/assets/douban" />
-                <Menu
+            {/* <div style={ { gridArea: 'menu' } }> */ }
+            <UpAndDown title={ "sdf" }
+                upChildren={ <AssetsGallery assets={ douMatetials } current={ '2' } prefix="/collage-poem/assets/douban" /> }
+                downChildren={ <ControlTools /> }
+            // upChildren={
+            //     <div>upupup</div>
+            // }
+            // downChildren={
+            //     <div>downdowndown</div>
+            // }
+            >
+            </UpAndDown>
+            {/* <Menu
                     onActionTaken={ (action) => {
                         action.execute();
                     } }
@@ -59,8 +68,8 @@ function EditorApp(props: EditorAppProps) {
                     renderAction={ props.RenderActionItem }
                     renderPlugin={ props.RenderPluginItem }
                 /> */}
-            {/* </div> */}
-            {/* <ControlTools /> */}
+            {/* </div> */ }
+            {/* <ControlTools /> */ }
             {
                 props.RenderPropertyRendererMap && (
                     <div style={ { gridArea: 'property-windows' } }>

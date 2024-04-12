@@ -26,14 +26,12 @@
 @layer components {
 
     .collage-editor {
+        height: 100dvh;
         background-color: #404040;
-        display: grid;
-        grid-gap: 25px;
-        grid-template-areas: 'menu editor property-windows';
-        grid-template-columns: 390px auto 200px;
-        grid-template-rows: 1fr;
-        justify-content: start;
-        /* padding: 30px 20px; */
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: flex-end;
     }
 
     .canvas-wrapper {
@@ -62,13 +60,13 @@
 
     .up-and-down {
         width: 100%;
-        /* width: 100px;
-        height: 100px; */
-        background-color: rgb(245, 230, 99);
-        /* border: 10px solid rgba(136, 136, 136, .5); */
-        /* border-radius: 50%; */
+        background-color: whitesmoke;
         touch-action: none;
         user-select: none;
+    }
+
+    .smooth-trans {
+        transition: transform 0.25s cubic-bezier(0.39, 0.575, 0.565, 1)
     }
 
 }
