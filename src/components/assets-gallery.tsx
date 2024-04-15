@@ -20,34 +20,36 @@ export const AssetsGallery: FC<GalleryProps> = ({ assets, current, prefix }) => 
 
     const renderGallery = (dir: string, pics: string[]) => {
         return (
-            <div className="flex flex-wrap h-[320px] overflow-x-hidden overflow-y-auto gap-1 p-1 scrollbar scrollbar-thumb-brown70  scrollbar-track-brown10 ">
-                { pics.map((pic, i) => (
-                    <img key={ `${ dir }_${ i }` } className='cursor-pointer h-10 object-contain hover:scale-105 inline-block' onClick={ (e) => {
-                        const img = e.target as HTMLImageElement;
-                        context.commandManager.addCommand({
-                            type: 'create-object',
-                            data: {
-                                objectType: "image",
-                                src: img,
-                                options: {
-                                    name: getRandomUid(),
-                                    scaleX: 0.8,
-                                    scaleY: 0.8,
-                                    top: Math.min(context.getMaxOffsetY() + 100, context.canvas?.height || 1440) - 40,
-                                    left: context.canvas?.width ? context.canvas.width / 2 - img.width / 2 : 0,
+            <div className="p-1 scrollbar scrollbar-thumb-brown70 overflow-x-auto max-h-[120px] scrollbar-track-brown10 ">
+                <div className='gallery-wrapper'>
+                    { pics.map((pic, i) => (
+                        <img key={ `${ dir }_${ i }` } className='max-w-[150px] rounded-md shadow-md cursor-pointer h-8 object-contain active:scale-105 inline-block' onClick={ (e) => {
+                            const img = e.target as HTMLImageElement;
+                            context.commandManager.addCommand({
+                                type: 'create-object',
+                                data: {
+                                    objectType: "image",
+                                    src: img,
+                                    options: {
+                                        name: getRandomUid(),
+                                        scaleX: 0.4,
+                                        scaleY: 0.4,
+                                        top: Math.min(context.getMaxOffsetY() + 100, context.canvas?.height || 1440) - 40,
+                                        left: context.canvas?.width ? context.canvas.width / 2 - img.width / 2 : 0,
+                                    }
                                 }
-                            }
-                        })
+                            })
 
-                    } } src={ `${ prefix ? `${ prefix }/` : '' }${ dir }/${ pic }` } alt={ pic } />
-                )) }
+                        } } src={ `${ prefix ? `${ prefix }/` : '' }${ dir }/${ pic }` } alt={ pic } />
+                    )) }
+                </div>
             </div>
         )
     }
 
     return (
-        <div className="flex flex-col gap-5">
-            <div className="flex justify-between items-end">
+        <div className="flex flex-col">
+            <div className="flex justify-between items-end bg-white">
                 { Object.keys(assets).map((key, i) => (
                     <div key={ i }
                         onClick={ () => setCurrentGallery(key) }

@@ -15,4 +15,4 @@ export function useFabricCanvas({ canvasId }: Options): {
     return {
         fabricCanvas,
     };
-} 
+}

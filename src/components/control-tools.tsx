@@ -25,7 +25,7 @@ const ControlTools: FC = () => {
         <div className="flex flex-col gap-5">
             {
                 ["reset", "save", "load"].map((action, i) => (
-                    <Button action={ action } />
+                    <Button action={ action } key={ i } />
                 ))
             }
         </div>

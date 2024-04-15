@@ -11,7 +11,7 @@ type UpAndDownProps = {
     headerBgColor?: string;
     upChildren?: React.ReactNode;
     downChildren?: React.ReactNode;
-    title: string;
+    title?: string;
     upIcon?: React.ReactNode;
     downIcon?: React.ReactNode;
 }
@@ -20,7 +20,6 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
     const {
         upChildren,
         downChildren,
-        title,
         upIcon = <ArrowUpIcon className='w-6 h-6' />,
         downIcon = <ArrowDownIcon className='w-6 h-6' />,
     } = props;
@@ -36,10 +35,8 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
     }
 
     function dragStart(e: PointerEvent) {
-
         initialX = e.clientX;
         initialY = e.clientY;
-
         active = true;
         upRef.current?.classList.remove('smooth-trans')
         downRef.current?.classList.remove('smooth-trans')
@@ -47,13 +44,12 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
 
     function dragEnd(e: PointerEvent) {
         var _currentY = e.clientY - initialY;
-        console.log(_currentY)
-        if (Math.abs(_currentY) < 20) {
+        if (Math.abs(_currentY) < 30) {
             isUpShowing = !isUpShowing;
         }
 
         if (active) {
-            console.log('dragEnd', isUpShowing)
+            e.stopPropagation();
             if (isUpShowing) {
                 setTranslate(upRef.current!, 0, '50%');
                 setTranslate(downRef.current!, 0, '-100%');
@@ -74,16 +70,16 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
         var canDown = isUpShowing;
         var canUp = !canDown;
 
-        // if (!active) return;
-
         var _currentY = e.clientY - initialY;
+        var _currentX = e.clientX - initialX;
 
-        if ((canDown && _currentY < 0) || (canUp && _currentY > 0)) {
+        if ((canDown && _currentY < 0) || (canUp && _currentY > 0) || Math.abs(_currentY / _currentX) <= 0.6) {
             active = false;
         }
 
 
         if (active) {
+            e.stopPropagation();
             e.preventDefault();
 
             if (isUpShowing) {
@@ -110,7 +106,7 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
 
         upAndDown.addEventListener('pointerdown', dragStart);
         upAndDown.addEventListener('pointerup', dragEnd);
-        // upAndDown.addEventListener('pointerleave', dragEnd);
+        upAndDown.addEventListener('pointercancel', e => e.stopPropagation());
         // upAndDown.addEventListener('pointerout', dragEnd);
         upAndDown.addEventListener('pointermove', drag);
     }, [])
@@ -122,16 +118,14 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
 
 
     return (
-        <div ref={ upAndDownRef } className='up-and-down smooth-trans relative h-96 max-h-96 text-center text-white -bottom-24'>
-            <div className='up max-h-96 h-96 absolute w-full select-none bottom-0 padding-4 will-change-transform ease-in-out' ref={ upRef }>
+        <div ref={ upAndDownRef } className='up-and-down smooth-trans relative block h-64 max-h-64 text-center text-white -bottom-16'>
+            <div className='up max-h-64 h-64 absolute w-full select-none bottom-0 padding-4 will-change-transform ease-in-out' ref={ upRef }>
                 <div className='flex justify-between items-center'>
-                    { title }
                     { upIcon }
                 </div>
                 { upChildren }
             </div>
-            <div className='down max-h-24 absolute w-full select-none padding-4 bottom-0 h-24 ease-in-out' ref={ downRef }>
-                { title }
+            <div className='down max-h-16 bg-white100 absolute w-full select-none padding-4 bottom-0 h-16 ease-in-out' ref={ downRef }>
                 { downIcon }
                 { downChildren }
             </div>

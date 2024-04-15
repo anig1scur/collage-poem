@@ -16,8 +16,8 @@ export type EditorAppProps = {
     RenderPluginItem?: React.FC<MenuPluginItemProps>,
     RenderPropertyRendererMap?: Record<string, (property: Property<any>) => JSX.Element>;
     canvasId: string;
-    height: number;
-    width: number;
+    height: number | string;
+    width: number | string;
 }
 function EditorApp(props: EditorAppProps) {
     const forceUpdate = useForceUpdate();
@@ -33,9 +33,8 @@ function EditorApp(props: EditorAppProps) {
     }, [context])
 
     return (
-        <div
-            className="collage-editor">
-            {/* <div style={ { gridArea: 'editor' } } className="canvas-wrapper">
+        <div className="collage-editor">
+            <div className="canvas-wrapper" style={ { width: props.width, height: props.height } }>
                 <Editor
                     canvasId={ props.canvasId }
                     height={ props.height }
@@ -44,19 +43,11 @@ function EditorApp(props: EditorAppProps) {
                     } }
                     width={ props.width }
                 />
-            </div> */}
-            {/* <div style={ { gridArea: 'menu' } }> */ }
-            <UpAndDown title={ "sdf" }
+            </div>
+            <UpAndDown
                 upChildren={ <AssetsGallery assets={ douMatetials } current={ '2' } prefix="/collage-poem/assets/douban" /> }
                 downChildren={ <ControlTools /> }
-            // upChildren={
-            //     <div>upupup</div>
-            // }
-            // downChildren={
-            //     <div>downdowndown</div>
-            // }
-            >
-            </UpAndDown>
+            />
             {/* <Menu
                     onActionTaken={ (action) => {
                         action.execute();

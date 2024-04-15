@@ -59,7 +59,6 @@ export class FabricContext implements IDestroyable {
   }
 
   deleteSelectedObjects() {
-
     const canvas = this.canvas;
     if (!canvas) throw new Error('Canvas is null');
 
@@ -80,11 +79,13 @@ export class FabricContext implements IDestroyable {
       borderScaleFactor: 2,
       cornerStyle: 'circle',
       cornerStrokeColor: '#B39470',
-      borderOpacityWhenMoving: 1,
-      objectCaching: false,
+      borderOpacityWhenMoving: 0,
+      objectCaching: true,
+    //   objectCaching: false,
+      selectable: true
     });
 
-    fabric.Canvas.prototype.selectionColor = '#D6CCAA3f';
+    fabric.Canvas.prototype.selectionColor ='#D6CCAA3a';
 
     // delete button
     const deleteControl = new fabric.Control({

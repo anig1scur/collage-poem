@@ -13,6 +13,7 @@ export abstract class SelectedObjectDataProperty<T> extends Property<T> {
         canvas.on('selection:cleared', this.onChange);
     }
     onChange = () => {
+        console.log('qwepqwpoi')
         this.change$.next(this.getValue())
     }
     destroy(): void {

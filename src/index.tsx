@@ -10,7 +10,7 @@ import { Bars3Icon, Bars4Icon, CircleStackIcon, FolderArrowDownIcon, ReceiptPerc
 import { ReactFabricContext } from "./contexts";
 
 const plugins: Plugin[] = [
-    new SelectPlugin('Selection'),
+    // new SelectPlugin('Selection'),
     new CreateRectPlugin('Create Rect'),
     new CreateCirclePlugin('Create Circle'),
 ]
@@ -104,8 +104,8 @@ const App = () => {
             //     }
             // }
             canvasId="canvas"
-            height={ 950 }
-            width={ 500 }
+            height={ 550 }
+            width={ 350 }
         />
     </ReactFabricContext.Provider>
 }
