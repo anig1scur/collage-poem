@@ -125,7 +125,7 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
                 </div>
                 { upChildren }
             </div>
-            <div className='down max-h-16 bg-white100 absolute w-full select-none padding-4 bottom-0 h-16 ease-in-out' ref={ downRef }>
+            <div className='down max-h-16 absolute w-full select-none padding-4 bottom-0 h-16 ease-in-out' ref={ downRef }>
                 { downIcon }
                 { downChildren }
             </div>

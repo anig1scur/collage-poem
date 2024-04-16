@@ -48,6 +48,7 @@ function EditorApp(props: EditorAppProps) {
                 upChildren={ <AssetsGallery assets={ douMatetials } current={ '2' } prefix="/collage-poem/assets/douban" /> }
                 downChildren={ <ControlTools /> }
             />
+            <div className="safe-bottom" />
             {/* <Menu
                     onActionTaken={ (action) => {
                         action.execute();

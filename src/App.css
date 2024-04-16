@@ -26,8 +26,9 @@
 @layer components {
 
     .collage-editor {
-        /* position: absolute; */
-        height: 100svh;
+        padding-top: 10px;
+        padding-bottom: calc(env(safe-area-inset-bottom, 10px) - 10px);
+        height: 100dvh;
         width: 100vw;
         overflow: hidden;
         display: flex;
@@ -57,7 +58,6 @@
 
     .up-and-down {
         width: 100%;
-        background-color: whitesmoke;
         touch-action: none;
         user-select: none;
     }
@@ -68,13 +68,26 @@
         transition: transform 0.25s cubic-bezier(0.39, 0.575, 0.565, 1)
     }
 
+    .hide {
+        display: none;
+    }
+
     .gallery-wrapper {
         display: grid;
         grid-template-rows: repeat(3, auto);
         grid-auto-flow: column;
-        gap: 4px;
+        gap: 5px;
         justify-items: center;
         align-items: center;
+    }
+
+    .safe-bottom {
+        position: absolute;
+        bottom: 0;
+        background: #907158;
+        width: 100%;
+        z-index: 999;
+        height: calc(env(safe-area-inset-bottom, 10px) - 10px);
     }
 
 }

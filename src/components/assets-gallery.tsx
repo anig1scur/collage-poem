@@ -20,7 +20,7 @@ export const AssetsGallery: FC<GalleryProps> = ({ assets, current, prefix }) => 
 
     const renderGallery = (dir: string, pics: string[]) => {
         return (
-            <div className="p-1 scrollbar scrollbar-thumb-brown70 overflow-x-auto max-h-[120px] scrollbar-track-brown10 ">
+            <div className="p-1 scrollbar scrollbar-thumb-brown70 overflow-x-auto max-h-[140px] scrollbar-track-brown10 ">
                 <div className='gallery-wrapper'>
                     { pics.map((pic, i) => (
                         <img key={ `${ dir }_${ i }` } className='max-w-[150px] rounded-md shadow-md cursor-pointer h-8 object-contain active:scale-105 inline-block' onClick={ (e) => {
@@ -32,8 +32,8 @@ export const AssetsGallery: FC<GalleryProps> = ({ assets, current, prefix }) => 
                                     src: img,
                                     options: {
                                         name: getRandomUid(),
-                                        scaleX: 0.4,
-                                        scaleY: 0.4,
+                                        scaleX: 0.5,
+                                        scaleY: 0.5,
                                         top: Math.min(context.getMaxOffsetY() + 100, context.canvas?.height || 1440) - 40,
                                         left: context.canvas?.width ? context.canvas.width / 2 - img.width / 2 : 0,
                                     }
@@ -48,13 +48,13 @@ export const AssetsGallery: FC<GalleryProps> = ({ assets, current, prefix }) => 
     }
 
     return (
-        <div className="flex flex-col">
-            <div className="flex justify-between items-end bg-white">
+        <div className="flex flex-col bg-white70 pb-safe">
+            <div className="flex justify-between items-end">
                 { Object.keys(assets).map((key, i) => (
                     <div key={ i }
                         onClick={ () => setCurrentGallery(key) }
                         className={
-                            clsx('label', key === currentGallery ? 'text-brown70 text-5xl' : '')
+                            clsx('label', key === currentGallery ? 'text-brown70 text-5xl tracking-tighter' : '')
                         }>
                         { key }
                     </div>
