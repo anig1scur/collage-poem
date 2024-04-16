@@ -22,7 +22,7 @@ const ControlTools: FC = () => {
     const context = useContext(ReactFabricContext);
 
     return (
-        <div className="flex flex-col gap-5">
+        <div className="flex gap-5 bg-white">
             {
                 ["reset", "save", "load"].map((action, i) => (
                     <Button action={ action } key={ i } />

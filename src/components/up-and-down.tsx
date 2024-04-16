@@ -35,6 +35,7 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
     }
 
     function dragStart(e: PointerEvent) {
+
         initialX = e.clientX;
         initialY = e.clientY;
         active = true;
@@ -43,7 +44,9 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
     }
 
     function dragEnd(e: PointerEvent) {
+
         var _currentY = e.clientY - initialY;
+
         if (Math.abs(_currentY) < 30) {
             isUpShowing = !isUpShowing;
         }
@@ -67,13 +70,14 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
     }
 
     function drag(e: PointerEvent) {
+
         var canDown = isUpShowing;
         var canUp = !canDown;
 
         var _currentY = e.clientY - initialY;
         var _currentX = e.clientX - initialX;
 
-        if ((canDown && _currentY < 0) || (canUp && _currentY > 0) || Math.abs(_currentY / _currentX) <= 0.6) {
+        if ((canDown && _currentY < 0) || (canUp && _currentY > 0) || Math.abs(_currentY / _currentX) <= 0.4) {
             active = false;
         }
 
@@ -83,15 +87,14 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
             e.preventDefault();
 
             if (isUpShowing) {
-                setTranslate(upRef.current!, 0, `calc(min(50%, ${ _currentY }px))`);
-                setTranslate(downRef.current!, 0, `calc(max(-100%, -${ _currentY / 2 }px))`);
+                setTranslate(upRef.current!, 0, `calc(min(50%, ${ _currentY * 0.6 }px))`);
+                setTranslate(downRef.current!, 0, `calc(max(-100%, -${ _currentY *0.3 }px))`);
             }
 
             else {
-                setTranslate(upRef.current!, 0, `calc(max(50% + ${ _currentY }px, 0px))`);
-                setTranslate(downRef.current!, 0, `calc(min(-100% - ${ _currentY / 2 }px, 0px))`);
+                setTranslate(upRef.current!, 0, `calc(max(50% + ${ _currentY * 0.6 }px, 0px))`);
+                setTranslate(downRef.current!, 0, `calc(min(-100% - ${ _currentY *0.3 }px, 0px))`);
             }
-
         }
     }
 
@@ -106,7 +109,13 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
 
         upAndDown.addEventListener('pointerdown', dragStart);
         upAndDown.addEventListener('pointerup', dragEnd);
-        upAndDown.addEventListener('pointercancel', e => e.stopPropagation());
+        upAndDown.addEventListener('pointercancel', e => {
+            e.stopPropagation();
+            e.preventDefault();
+
+            drag(e);
+            dragEnd(e);
+        });
         // upAndDown.addEventListener('pointerout', dragEnd);
         upAndDown.addEventListener('pointermove', drag);
     }, [])
@@ -120,13 +129,15 @@ const UpAndDown: React.FC<UpAndDownProps> = (props) => {
     return (
         <div ref={ upAndDownRef } className='up-and-down smooth-trans relative block h-64 max-h-64 text-center text-white -bottom-16'>
             <div className='up max-h-64 h-64 absolute w-full select-none bottom-0 padding-4 will-change-transform ease-in-out' ref={ upRef }>
-                <div className='flex justify-between items-center'>
+                <div className='flex justify-center items-center bg-orange-400 mb-2'>
                     { upIcon }
                 </div>
                 { upChildren }
             </div>
             <div className='down max-h-16 absolute w-full select-none padding-4 bottom-0 h-16 ease-in-out' ref={ downRef }>
-                { downIcon }
+                <div className='flex justify-center items-center bg-orange-400 mb-2'>
+                    { downIcon }
+                </div>
                 { downChildren }
             </div>
         </div>

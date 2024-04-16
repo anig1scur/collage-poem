@@ -48,7 +48,7 @@ export const AssetsGallery: FC<GalleryProps> = ({ assets, current, prefix }) => 
     }
 
     return (
-        <div className="flex flex-col bg-white70 pb-safe">
+        <div className="flex flex-col bg-white70">
             <div className="flex justify-between items-end">
                 { Object.keys(assets).map((key, i) => (
                     <div key={ i }
