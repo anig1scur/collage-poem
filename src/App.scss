@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-brown3;
+    overflow: hidden;
+  }
+
+  .h-d-screen {
+    height: 100dvh
+  }
+
+  .h-s-screen {
+    height: 100svh
+  }
+
+  .h-l-screen {
+    height: 100lvh
+  }
+
+}
+
+
+@layer components {
+
+  .collage-editor {
+    padding-top: 10px;
+    padding-bottom: calc(env(safe-area-inset-bottom, 10px) - 10px);
+    height: 100dvh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .gallery-wrapper {
+      @apply scrollbar scrollbar-thumb-brown70 overflow-x-auto scrollbar-track-brown10;
+      display: grid;
+      grid-template-rows: repeat(3, auto);
+      grid-auto-flow: column;
+      gap: 4px;
+      justify-items: center;
+      align-items: center;
+
+      >img {
+        min-width: 120px;
+      }
+    }
+
+
+    &.pc {
+      scale: 125%;
+
+      @apply flex-row justify-center gap-10;
+
+      .sidebar {
+        @apply w-96 gap-10 flex flex-col;
+      }
+
+      .gallery-wrapper {
+        @apply overflow-y-auto overflow-x-hidden;
+        grid-template-rows: unset;
+        grid-template-columns: repeat(3, auto);
+        grid-auto-flow: row;
+        gap: 10px;
+
+      }
+    }
+  }
+
+  .canvas-wrapper {
+    @apply border-brown30/40 border-[12px] border-solid rounded-2xl h-[80vh]
+  }
+
+  .label {
+    @apply shadow-md text-2xl min-w-[32px] hover:text-brown50 text-brown30 text-center hover:scale-125 cursor-pointer transform -translate-y-[6px] border-b-[1px] border-brown10
+  }
+
+  .label:nth-child(even) {
+    @apply transform rotate-3;
+  }
+
+  .label:nth-child(odd) {
+    @apply transform -rotate-3;
+  }
+
+  .button {
+    @apply w-fit py-1 px-5 font-medium rounded-lg bg-brown30/30 text-2xl hover:bg-brown30/40 text-brown70 text-center hover:scale-110 cursor-pointer
+  }
+
+  .up-and-down {
+    width: 100%;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .smooth-trans {
+    cursor: grab;
+    will-change: transform;
+    transition: transform 0.25s cubic-bezier(0.39, 0.575, 0.565, 1)
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .safe-bottom {
+    position: absolute;
+    bottom: 0;
+    background: #907158;
+    width: 100%;
+    z-index: 999;
+    height: calc(env(safe-area-inset-bottom, 10px) - 10px);
+  }
+
+}

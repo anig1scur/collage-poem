@@ -20,10 +20,10 @@ export const AssetsGallery: FC<GalleryProps> = ({ assets, current, prefix }) => 
 
     const renderGallery = (dir: string, pics: string[]) => {
         return (
-            <div className="p-1 scrollbar scrollbar-thumb-brown70 overflow-x-auto max-h-[140px] scrollbar-track-brown10 ">
+            <div className="p-1">
                 <div className='gallery-wrapper'>
                     { pics.map((pic, i) => (
-                        <img key={ `${ dir }_${ i }` } className='max-w-[150px] rounded-md shadow-md cursor-pointer h-8 object-contain active:scale-105 inline-block' onClick={ (e) => {
+                        <img key={ `${ dir }_${ i }` } className='rounded-md shadow-md cursor-pointer h-8 object-contain active:scale-105 inline-block' onClick={ (e) => {
                             const img = e.target as HTMLImageElement;
                             context.commandManager.addCommand({
                                 type: 'create-object',

@@ -8,103 +8,14 @@
 
     <meta name="theme-color" content="#fff" />
     <title>Collage Poem Maker</title>
-    <style>
-        #item:active {
-            background-color: rgba(168, 218, 220, 1.00);
-        }
-
-        #item:hover {
-            cursor: pointer;
-            border-width: 20px;
-        }
-    </style>
-
 </head>
 
 <body>
     <div id="root">
-        <!-- <div id="outerContainer">
-            <div id="container">
-                <div id="item">
-
-                </div>
-            </div>
-        </div> -->
     </div>
-    <script src="https://cdn.bootcdn.net/ajax/libs/eruda/2.4.1/eruda.min.js"></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/eruda/2.4.1/eruda.min.js"></script> -->
     <script>eruda.init();</script>
     <script src="/src/index.tsx" type="module"></script>
-    <!-- <script>
-        var dragItem = document.querySelector("#item");
-        var container = document.querySelector("#container");
-
-        var active = false;
-        var currentX;
-        var currentY;
-        var initialX;
-        var initialY;
-        var xOffset = 0;
-        var yOffset = 0;
-
-        container.addEventListener("touchstart", dragStart, false);
-        container.addEventListener("touchend", dragEnd, false);
-        container.addEventListener("touchmove", drag, false);
-
-        container.addEventListener("mousedown", dragStart, false);
-        container.addEventListener("mouseup", dragEnd, false);
-        container.addEventListener("mousemove", drag, false);
-
-        function dragStart (e) {
-            if (e.type === "touchstart") {
-                initialX = e.touches[0].clientX;
-                initialY = e.touches[0].clientY;
-            } else {
-                initialX = e.clientX;
-                initialY = e.clientY;
-            }
-
-            if (e.target === dragItem) {
-                active = true;
-            }
-        }
-
-        function dragEnd (e) {
-            xOffset = currentX;
-            yOffset = currentY;
-            active = false;
-        }
-
-        function drag (e) {
-            if (active) {
-                e.preventDefault();
-
-                if (e.type === "touchmove") {
-                    _currentX = e.touches[0].clientX - initialX;
-                    _currentY = e.touches[0].clientY - initialY;
-                } else {
-                    _currentX = e.clientX - initialX;
-                    _currentY = e.clientY - initialY;
-                }
-
-                console.log(_currentY, _currentX)
-
-                if (Math.abs(_currentY / _currentX) < 0.8 && Math.abs(_currentY) > 25) {
-                    console.log(Math.abs(_currentY / _currentX))
-                    return;
-                }
-
-                console.log(xOffset, yOffset)
-
-                currentY = _currentY + yOffset;
-
-                setTranslate(0, currentY, dragItem);
-            }
-        }
-
-        function setTranslate (xPos, yPos, el) {
-            el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
-        }
-    </script> -->
 </body>
 
 </html>
